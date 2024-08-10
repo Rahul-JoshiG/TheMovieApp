@@ -5,15 +5,26 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitClient {
     private const val BASE_URL = "https://api.themoviedb.org/3/"
-    private val retrofitBuilder by lazy{
+    private const val API_KEY = "f0f9da663fc666f530266581f6546612"
+
+    // Lazy initialization of the Retrofit instance
+    private val retrofit by lazy {
         Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-            .create(IMovieApiService::class.java)
     }
 
+    // Lazy initialization of the API service
+    val movieApiService: IMovieApiService by lazy {
+        retrofit.create(IMovieApiService::class.java)
+    }
+
+    // Object containing methods to fetch the movie lists
     object MovieList {
-        val movieList = retrofitBuilder.getPopularMovies("f0f9da663fc666f530266581f6546612")
+        fun getPopularMovies() = movieApiService.getPopularMovies(API_KEY)
+        fun getUpcomingMovies() = movieApiService.getUpComingMovies(API_KEY)
+        fun getTopRatedMovies() = movieApiService.getTopRatedMovies(API_KEY)
+        fun getNowPlayingMovies() = movieApiService.getNowPlayingMovies(API_KEY)
     }
 }

@@ -7,9 +7,10 @@
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".activities.MainActivity">
+        tools:context=".activities.MainActivity"
+        android:background="@color/primary_color">
 
-        <androidx.constraintlayout.widget.Guideline
+        <!--<androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_start"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -35,7 +36,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.90" />
+            app:layout_constraintGuide_percent="0.90" />-->
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/app_name"
@@ -44,10 +45,21 @@
             android:layout_marginTop="20dp"
             android:text="@string/app_name"
             android:textSize="30sp"
+            android:textColor="@color/white"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@id/guideline_end"
-            app:layout_constraintStart_toStartOf="@id/guideline_start"
-            app:layout_constraintTop_toTopOf="@id/guideline_top" />
+            android:paddingHorizontal="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/movie_type_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:minHeight="48dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/app_name" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/movie_recycler_view"
@@ -55,10 +67,10 @@
             android:layout_height="0dp"
             android:layout_marginTop="10dp"
             android:padding="10dp"
-            app:layout_constraintBottom_toBottomOf="@id/guideline_bottom"
-            app:layout_constraintEnd_toEndOf="@id/guideline_end"
-            app:layout_constraintStart_toStartOf="@id/guideline_start"
-            app:layout_constraintTop_toBottomOf="@id/app_name" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/movie_type_spinner" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
