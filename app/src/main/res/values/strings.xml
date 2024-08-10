@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">TheMovieApp</string>
+    <string name="movie_name">Movie Name</string>
+    <string name="movie_description">Movie Description</string>
+    <string name="_01_01_2024">01/01/2024</string>
+    <string name="english">english</string>
+    <string name="_5_5_stars">5.5 stars</string>
+</resources>
