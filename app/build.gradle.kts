@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace = "com.example.themovieapp"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.themovieapp"
         minSdk = 26
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -34,6 +34,7 @@ android {
         jvmTarget = "1.8"
     }
     buildFeatures{
+        //noinspection DataBindingWithoutKapt
         dataBinding = true
         viewBinding = true
     }
