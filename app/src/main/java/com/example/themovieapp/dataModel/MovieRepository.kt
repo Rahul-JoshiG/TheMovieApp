@@ -13,20 +13,19 @@ class MovieRepository {
     private val mutableLiveData: MutableLiveData<List<Result>> = MutableLiveData()
     private lateinit var call: Call<Movie>
 
-
     fun getMutableLiveData(movieType: String): MutableLiveData<List<Result>> {
         val movieApiService = RetrofitClient.movieApiService
 
         when (movieType.lowercase()) {
-            "popular" -> call = movieApiService.getPopularMovies("f0f9da663fc666f530266581f6546612")
+            "popular" -> call = movieApiService.getPopularMovies(API_KEY)
             "upcoming" -> call =
-                movieApiService.getUpComingMovies("f0f9da663fc666f530266581f6546612")
+                movieApiService.getUpComingMovies(API_KEY)
 
             "top-rated" -> call =
-                movieApiService.getTopRatedMovies("f0f9da663fc666f530266581f6546612")
+                movieApiService.getTopRatedMovies(API_KEY)
 
             "now-playing" -> call =
-                movieApiService.getNowPlayingMovies("f0f9da663fc666f530266581f6546612")
+                movieApiService.getNowPlayingMovies(API_KEY)
 
             else -> Log.d(MainActivity.TAG, "onItemSelected: No matching movie type")
         }
@@ -52,5 +51,9 @@ class MovieRepository {
             }
         })
         return mutableLiveData
+    }
+
+    companion object {
+        private const val API_KEY = "f0f9da663fc666f530266581f6546612"
     }
 }
