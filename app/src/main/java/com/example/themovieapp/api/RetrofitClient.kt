@@ -21,10 +21,10 @@ object RetrofitClient {
     }
 
     // Object containing methods to fetch the movie lists
-    object MovieList {
+    /*object MovieList {
         fun getPopularMovies() = movieApiService.getPopularMovies(API_KEY)
         fun getUpcomingMovies() = movieApiService.getUpComingMovies(API_KEY)
         fun getTopRatedMovies() = movieApiService.getTopRatedMovies(API_KEY)
         fun getNowPlayingMovies() = movieApiService.getNowPlayingMovies(API_KEY)
-    }
+    }*/
 }
