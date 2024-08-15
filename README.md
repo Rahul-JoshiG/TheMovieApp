@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/592bd429-e22a-4830-980b-0ae6c5eb002d)TheMovieApp
+TheMovieApp
 
 TheMovieApp is an Android application that fetches and displays popular movies using the TMDb API. The app provides a user-friendly interface with various movie categories and animations for an enhanced user experience.
 
@@ -42,3 +42,15 @@ Code Structure
         For implementing swipe-to-refresh functionality.
     RecyclerView: 
         For displaying lists of movies.
+
+
+Screenshort:
+
+![image](https://github.com/user-attachments/assets/ff429b1f-b404-4e9e-b036-9e85849d98b8)                         ![image](https://github.com/user-attachments/assets/ac93f6ca-148b-463c-bba0-0671735b278a)
+
+
+![image](https://github.com/user-attachments/assets/eff1fcaa-fc39-46f7-8dc1-e2cf9caf7aa4)                         ![image](https://github.com/user-attachments/assets/3e2a5d65-d713-4dc9-9213-3c8abd0af62d)
+
+
+
+
