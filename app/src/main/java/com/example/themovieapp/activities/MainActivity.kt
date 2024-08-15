@@ -3,33 +3,53 @@ package com.example.themovieapp.activities
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.themovieapp.R
 import com.example.themovieapp.adapters.MovieAdapter
-import com.example.themovieapp.api.RetrofitClient
-import com.example.themovieapp.dataModel.Movie
 import com.example.themovieapp.dataModel.Result
 import com.example.themovieapp.databinding.ActivityMainBinding
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.example.themovieapp.viewmodel.MainActivityViewModel
 
 class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
     private lateinit var mBinding: ActivityMainBinding
+    private lateinit var mViewModel: MainActivityViewModel
+    private var currentMovieType: String = "popular" // Default movie type
+
+    private lateinit var fadeInAnimation: Animation
+    private lateinit var fadeOutAnimation: Animation
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        mViewModel = ViewModelProvider(this)[MainActivityViewModel::class.java]
+
         Log.d(TAG, "onCreate: Activity started")
 
+        fadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_in)
+        fadeOutAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_out)
+
         setUpSpinner()
+        setUpRefreshListener()
+
+        // Initialize with default movie type
+        getMovies(currentMovieType)
+    }
+
+    private fun setUpRefreshListener() {
+        mBinding.main.setColorSchemeResources(R.color.black)
+        mBinding.main.setOnRefreshListener {
+            // Refresh the list based on the currently selected movie type
+            getMovies(currentMovieType)
+        }
     }
 
     private fun setUpSpinner() {
@@ -47,50 +67,40 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     }
 
     private fun showMoviesType() {
-        Log.d(TAG, "showMovies: Setting up movie's type display")
+        Log.d(TAG, "showMoviesType: Setting up movie's type display")
         mBinding.movieTypeSpinner.onItemSelectedListener = this
     }
 
     override fun onItemSelected(call: AdapterView<*>?, response: View?, p2: Int, p3: Long) {
         val type = call?.getItemAtPosition(p2).toString()
         Log.d(TAG, "onItemSelected: Selected movie type $type")
-        when (type.lowercase()) {
-            "popular" -> movieApiCall(RetrofitClient.MovieList.getPopularMovies())
-            "upcoming" -> movieApiCall(RetrofitClient.MovieList.getUpcomingMovies())
-            "top-rated" -> movieApiCall(RetrofitClient.MovieList.getTopRatedMovies())
-            "now-playing" -> movieApiCall(RetrofitClient.MovieList.getNowPlayingMovies())
-            else -> Log.d(TAG, "onItemSelected: No matching movie type")
-        }
+        currentMovieType = type.lowercase()
+
+        // Start the fade out animation
+        mBinding.movieRecyclerView.startAnimation(fadeOutAnimation)
+
+        // Delay for animation to complete before fetching new data
+        fadeOutAnimation.setAnimationListener(object : Animation.AnimationListener {
+            override fun onAnimationStart(animation: Animation?) {}
+            override fun onAnimationEnd(animation: Animation?) {
+                getMovies(currentMovieType)
+            }
+            override fun onAnimationRepeat(animation: Animation?) {}
+        })
     }
 
     override fun onNothingSelected(call: AdapterView<*>?) {
         Log.d(TAG, "onNothingSelected: No movie type selected")
     }
 
-    private fun movieApiCall(movieList: Call<Movie>) {
-        Log.d(TAG, "movieApiCall: Making API call")
-        movieList.enqueue(object : Callback<Movie?> {
-            override fun onResponse(call: Call<Movie?>, response: Response<Movie?>) {
-                if (response.isSuccessful && response.body()?.results != null) {
-                    val list = response.body()?.results
-                    if (!list.isNullOrEmpty()) {
-                        Log.d(TAG, "onResponse: Received ${list.size} movies")
-                        setUpRecyclerView(list)
-                    } else {
-                        Log.d(TAG, "onResponse: No movies found in response")
-                        Toast.makeText(this@MainActivity, "No movies found", Toast.LENGTH_SHORT).show()
-                    }
-                } else {
-                    Log.e(TAG, "onResponse: Failed response, ${response.message()}")
-                    Toast.makeText(this@MainActivity, "Failed to load movies", Toast.LENGTH_SHORT).show()
-                }
-            }
-
-            override fun onFailure(call: Call<Movie?>, response: Throwable) {
-                Log.e(TAG, "onFailure: API call failed, ${response.message}")
-                Toast.makeText(this@MainActivity, "Something went wrong", Toast.LENGTH_SHORT).show()
-            }
-        })
+    private fun getMovies(type: String) {
+        Log.d(TAG, "getMovies: movie type = $type")
+        mViewModel.getMovies(type).observe(this) { moviesFromLiveData ->
+            val movies = ArrayList(moviesFromLiveData)
+            // Apply fade in animation after data is loaded
+            setUpRecyclerView(movies)
+            mBinding.main.isRefreshing = false
+        }
     }
 
     private fun setUpRecyclerView(list: List<Result>) {
@@ -105,10 +115,12 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                     DividerItemDecoration.VERTICAL
                 )
             )
+            // Start the fade in animation
+            startAnimation(fadeInAnimation)
         }
     }
 
     companion object {
-        private const val TAG = "MainActivity"
+        const val TAG = "MainActivity"
     }
 }

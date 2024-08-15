@@ -10,10 +10,13 @@ import com.squareup.picasso.Picasso
 import java.math.BigDecimal
 import java.math.RoundingMode
 
-class MovieAdapter(private val mMovieList : List<Result>) : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
-    private lateinit var mBinding : MovieViewLayoutBinding
+class MovieAdapter(private val mMovieList: List<Result>) :
+    RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
+    private lateinit var mBinding: MovieViewLayoutBinding
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        mBinding = MovieViewLayoutBinding.inflate(LayoutInflater.from(parent.context),parent, false)
+        mBinding =
+            MovieViewLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MovieViewHolder(mBinding)
     }
 
@@ -25,7 +28,8 @@ class MovieAdapter(private val mMovieList : List<Result>) : RecyclerView.Adapter
         return mMovieList.size
     }
 
-    class MovieViewHolder(private val mBinding : MovieViewLayoutBinding) : RecyclerView.ViewHolder(mBinding.root){
+    class MovieViewHolder(private val mBinding: MovieViewLayoutBinding) :
+        RecyclerView.ViewHolder(mBinding.root) {
 
         @SuppressLint("SetTextI18n")
         fun setValuesIntoRecyclerView(currentItem: Result) {
@@ -35,7 +39,8 @@ class MovieAdapter(private val mMovieList : List<Result>) : RecyclerView.Adapter
             BigDecimal(currentItem.voteAverage).setScale(1, RoundingMode.HALF_EVEN).toString()
                 .also { mBinding.movieAvgVoteView.text = """$it⭐""" }
             mBinding.movieOriginalLangView.text = currentItem.originalLanguage
-            Picasso.get().load(IMAGE_BASE_URL+currentItem.posterPath).into(mBinding.movieImageView)
+            Picasso.get().load(IMAGE_BASE_URL + currentItem.posterPath)
+                .into(mBinding.movieImageView)
         }
 
         companion object {
