@@ -48,7 +48,7 @@ Screenshort:
 
 
 
-![image](https://github.com/user-attachments/assets/d428819a-b632-48fb-ac4b-cc2f8f8fcf27)                                  ![image](https://github.com/user- attachments/assets/05d1b5ba-c712-48c7-aae2-81660497cedc)
+![image](https://github.com/user-attachments/assets/d428819a-b632-48fb-ac4b-cc2f8f8fcf27)                               ![image](https://github.com/user- attachments/assets/05d1b5ba-c712-48c7-aae2-81660497cedc)
 
 
 
