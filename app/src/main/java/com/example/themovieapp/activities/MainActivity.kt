@@ -1,5 +1,6 @@
 package com.example.themovieapp.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -16,9 +17,11 @@ import com.example.themovieapp.R
 import com.example.themovieapp.adapters.MovieAdapter
 import com.example.themovieapp.dataModel.Result
 import com.example.themovieapp.databinding.ActivityMainBinding
+import com.example.themovieapp.interfaces.IMovieActions
+import com.example.themovieapp.util.Constant
 import com.example.themovieapp.viewmodel.MainActivityViewModel
 
-class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
+class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener, IMovieActions {
 
     private lateinit var mBinding: ActivityMainBinding
     private lateinit var mViewModel: MainActivityViewModel
@@ -57,7 +60,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         ArrayAdapter.createFromResource(
             this,
             R.array.movie_type,
-            android.R.layout.simple_spinner_item
+            R.layout.custom_spinner_layout
         ).also { adapter ->
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             mBinding.movieTypeSpinner.adapter = adapter
@@ -105,7 +108,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
     private fun setUpRecyclerView(list: List<Result>) {
         Log.d(TAG, "setUpRecyclerView: Initializing RecyclerView with ${list.size} movies")
-        val movieAdapter = MovieAdapter(list)
+        val movieAdapter = MovieAdapter(list, this@MainActivity)
         mBinding.movieRecyclerView.apply {
             adapter = movieAdapter
             layoutManager = LinearLayoutManager(this@MainActivity)
@@ -118,6 +121,19 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             // Start the fade in animation
             startAnimation(fadeInAnimation)
         }
+    }
+
+    override fun openActivity(position: Int) {
+        Log.d(TAG, "openActivity: open activity with position of $position")
+        openMovieFragmentActivity(position)
+    }
+
+    private fun openMovieFragmentActivity(position: Int) {
+        Log.d(TAG, "openMovieFragmentActivity: opening movie fragment activity with position $position")
+        val intent = Intent(this@MainActivity, MovieFragmentActivity::class.java)
+        intent.putExtra(Constant.MOVIE_TYPE, currentMovieType)
+        intent.putExtra(Constant.MOVIE_POSITION, position)
+        startActivity(intent)
     }
 
     companion object {

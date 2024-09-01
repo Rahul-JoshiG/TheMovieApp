@@ -7,7 +7,7 @@ object RetrofitClient {
     private const val BASE_URL = "https://api.themoviedb.org/3/"
 
     // Lazy initialization of the Retrofit instance
-    private val retrofit by lazy {
+    private val retrofit : Retrofit by lazy {
         Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
