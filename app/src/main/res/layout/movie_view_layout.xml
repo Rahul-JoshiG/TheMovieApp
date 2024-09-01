@@ -39,13 +39,22 @@
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.95" />-->
 
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/progress_bar"
+            app:layout_constraintTop_toTopOf="parent"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@id/movie_name_view"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/movie_image_view"
             style="@style/MaterialAlertDialog.Material3"
             android:layout_width="0dp"
             android:layout_height="500dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_launcher_background"
             app:layout_constraintBottom_toTopOf="@id/movie_name_view"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

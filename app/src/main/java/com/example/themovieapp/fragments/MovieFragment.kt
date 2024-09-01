@@ -67,7 +67,20 @@ class MovieFragment : Fragment() {
         mBinding.movieDescView.text = position.overview
         mBinding.movieAvgVoteView.text = position.voteAverage.toString().substring(0, 3)+"⭐"
         mBinding.movieReleaseDateView.text = position.releaseDate
-        Picasso.get().load(IMAGE_BASE_URL+position.posterPath).into(mBinding.movieImageView)
+        mBinding.progressBar.visibility = View.VISIBLE
+
+        Picasso.get()
+            .load(IMAGE_BASE_URL + position.posterPath)
+            .into(mBinding.movieImageView, object : com.squareup.picasso.Callback {
+                override fun onSuccess() {
+                    mBinding.progressBar.visibility = View.INVISIBLE
+                    mBinding.movieImageView.visibility = View.VISIBLE
+                }
+
+                override fun onError(e: Exception?) {
+                    mBinding.progressBar.visibility = View.INVISIBLE
+                }
+            })
     }
 
     companion object {
