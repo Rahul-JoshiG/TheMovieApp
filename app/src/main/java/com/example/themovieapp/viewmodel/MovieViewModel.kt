@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.example.themovieapp.dataModel.MovieRepository
 import com.example.themovieapp.dataModel.Result
 
-class MainActivityViewModel : ViewModel() {
+class MovieViewModel : ViewModel() {
     private val mMovieRepository = MovieRepository()
 
     fun getMovies(type : String) : MutableLiveData<List<Result>> {

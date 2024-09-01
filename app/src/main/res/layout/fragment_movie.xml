@@ -1,14 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".fragments.MovieFragment">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/main"
+        android:background="@drawable/gradient_background2"
+        tools:context=".fragments.MovieFragment">
 
-</FrameLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/movie_image_view"
+                android:layout_width="0dp"
+                android:layout_height="500dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_launcher_background"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/movie_name_view"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/movie_name_view"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:padding="20dp"
+                android:text="@string/movie_name"
+                android:textColor="@color/black"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                app:fontFamily="@font/alfa_slab_one"
+                app:layout_constraintBottom_toTopOf="@id/movie_desc_view"
+                app:layout_constraintEnd_toEndOf="@id/movie_image_view"
+                app:layout_constraintStart_toStartOf="@+id/movie_image_view"
+                app:layout_constraintTop_toBottomOf="@id/movie_image_view" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/movie_desc_view"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:padding="10dp"
+                android:text="@string/movie_description"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                android:justificationMode="inter_word"
+                android:textStyle="italic"
+                app:layout_constraintEnd_toEndOf="@id/movie_image_view"
+                app:layout_constraintStart_toStartOf="@id/movie_image_view"
+                app:layout_constraintTop_toBottomOf="@id/movie_name_view"
+                app:layout_constraintBottom_toTopOf="@id/linear_layout"/>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/linear_layout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal"
+                android:paddingHorizontal="10dp"
+                app:layout_constraintEnd_toEndOf="@id/movie_image_view"
+                app:layout_constraintStart_toStartOf="@id/movie_image_view"
+                app:layout_constraintTop_toBottomOf="@id/movie_desc_view"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/movie_release_date_view"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="20dp"
+                    android:text="@string/_01_01_2024"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:layout_weight="1"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/movie_avg_vote_view"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="20dp"
+                    android:gravity="center"
+                    android:text="@string/_5_5_stars"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:layout_weight="1"/>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
+</layout>

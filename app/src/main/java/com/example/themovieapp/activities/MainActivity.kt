@@ -19,12 +19,12 @@ import com.example.themovieapp.dataModel.Result
 import com.example.themovieapp.databinding.ActivityMainBinding
 import com.example.themovieapp.interfaces.IMovieActions
 import com.example.themovieapp.util.Constant
-import com.example.themovieapp.viewmodel.MainActivityViewModel
+import com.example.themovieapp.viewmodel.MovieViewModel
 
 class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener, IMovieActions {
 
     private lateinit var mBinding: ActivityMainBinding
-    private lateinit var mViewModel: MainActivityViewModel
+    private lateinit var mViewModel: MovieViewModel
     private var currentMovieType: String = "popular" // Default movie type
 
     private lateinit var fadeInAnimation: Animation
@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener, IM
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        mViewModel = ViewModelProvider(this)[MainActivityViewModel::class.java]
+        mViewModel = ViewModelProvider(this)[MovieViewModel::class.java]
 
         Log.d(TAG, "onCreate: Activity started")
 

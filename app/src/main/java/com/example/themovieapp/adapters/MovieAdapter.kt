@@ -9,15 +9,11 @@ import com.example.themovieapp.dataModel.Result
 import com.example.themovieapp.databinding.MovieViewLayoutBinding
 import com.example.themovieapp.interfaces.IMovieActions
 import com.squareup.picasso.Picasso
-import java.math.BigDecimal
-import java.math.RoundingMode
-import kotlin.properties.Delegates
 
 class MovieAdapter(private val mMovieList: List<Result>, val mIMovieActions: IMovieActions) :
     RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
     private lateinit var mBinding: MovieViewLayoutBinding
-    private var mCurrentPosition by Delegates.notNull<Int>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         Log.d(TAG, "onCreateViewHolder: create view holder")
@@ -26,10 +22,10 @@ class MovieAdapter(private val mMovieList: List<Result>, val mIMovieActions: IMo
         return MovieViewHolder(mBinding)
     }
 
-    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MovieViewHolder, @SuppressLint("RecyclerView") position: Int) {
         Log.d(TAG, "onBindViewHolder: bind the view holder")
-        mCurrentPosition = position
-        holder.setValuesIntoRecyclerView(mMovieList[position])
+        holder.setValuesIntoRecyclerView(mMovieList[position], position)
+
     }
 
     override fun getItemCount(): Int {
@@ -41,25 +37,28 @@ class MovieAdapter(private val mMovieList: List<Result>, val mIMovieActions: IMo
         RecyclerView.ViewHolder(mBinding.root) {
 
         @SuppressLint("SetTextI18n")
-        fun setValuesIntoRecyclerView(currentItem: Result) {
+        fun setValuesIntoRecyclerView(currentItem: Result, position: Int) {
             Log.d(TAG, "setValuesIntoRecyclerView: setting values into recycler view")
             mBinding.movieNameView.text = currentItem.title
             mBinding.movieDescView.text = currentItem.overview
             mBinding.movieReleaseDateView.text = currentItem.releaseDate
-            BigDecimal(currentItem.voteAverage).setScale(1, RoundingMode.HALF_EVEN).toString()
-                .also { mBinding.movieAvgVoteView.text = """$it⭐""" }
+            mBinding.movieAvgVoteView.text = currentItem.voteAverage.toString().substring(0,3)+"⭐"
             mBinding.movieOriginalLangView.text = currentItem.originalLanguage
             Picasso.get().load(IMAGE_BASE_URL + currentItem.posterPath)
                 .into(mBinding.movieImageView)
 
-
-            setOnClickListener()
+            setOnClickListener(position)
         }
 
-        private fun setOnClickListener() {
+        private fun setOnClickListener(position: Int) {
             mBinding.movieNameView.setOnClickListener{
-                Log.d(TAG, "setOnClickListener: going to main activity with position of $mCurrentPosition")
-                mIMovieActions.openActivity(position = mCurrentPosition)
+                Log.d(TAG, "setOnClickListener: name clicked  $position")
+                mIMovieActions.openActivity(position = position)
+            }
+
+            mBinding.movieImageView.setOnClickListener{
+                Log.d(TAG, "setOnClickListener: image clicked $position")
+                mIMovieActions.openActivity(position)
             }
         }
 
