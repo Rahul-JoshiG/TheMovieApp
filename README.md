@@ -20,33 +20,29 @@ Swipe-to-Refresh: Swipe down on the list to refresh the movie data.
 
 ## Code Structure
 
-  ### MainActivity: 
-      Handles the main UI and interactions, including movie fetching and UI updates.
-  ### MainActivityViewModel:
+  1. MainActivity: 
+    Handles the main UI and interactions, including movie fetching and UI updates.
+  2. MainActivityViewModel:
       Manages data for the MainActivity and communicates with the repository.
-  ### MovieRepository:
+  3. MovieRepository:
       Responsible for fetching movie data from the TMDb API.
-  ### MovieAdapter: 
+  4. MovieAdapter: 
       Adapts the movie data for display in the RecyclerView.
-  activity_main.xml: 
+  5. activity_main.xml: 
       Layout file for the main activity.
-
-  Dependencies
-    Retrofit: 
+  6. Dependencies
+    > Retrofit: 
         For making network requests.
-    Picasso:
+    > Picasso:
         For image loading.
-    Data Binding: 
+    > Data Binding: 
         For binding UI components to data sources.
-    SwipeRefreshLayout: 
+    > SwipeRefreshLayout: 
         For implementing swipe-to-refresh functionality.
-    RecyclerView: 
+    > RecyclerView: 
         For displaying lists of movies.
 
-
-Screenshort:
-
-
+## Screenshort:
 
 ![image](https://github.com/user-attachments/assets/d428819a-b632-48fb-ac4b-cc2f8f8fcf27)           ![image](https://github.com/user-attachments/assets/d3998e88-5c52-4aea-9684-70f86b9c9f38)
 
@@ -61,7 +57,7 @@ Screenshort:
 
 
 
-Video:
+## Video:
 
 
 https://github.com/user-attachments/assets/ab7265bf-317c-4471-81df-4a3831e24fd9
