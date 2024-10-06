@@ -18,15 +18,15 @@ Installation
 Spinner: Use the spinner at the top of the screen to select different movie categories.
 Swipe-to-Refresh: Swipe down on the list to refresh the movie data.
 
-Code Structure
+## Code Structure
 
-  MainActivity: 
+  ### MainActivity: 
       Handles the main UI and interactions, including movie fetching and UI updates.
-  MainActivityViewModel:
+  ### MainActivityViewModel:
       Manages data for the MainActivity and communicates with the repository.
-  MovieRepository:
+  ### MovieRepository:
       Responsible for fetching movie data from the TMDb API.
-  MovieAdapter: 
+  ### MovieAdapter: 
       Adapts the movie data for display in the RecyclerView.
   activity_main.xml: 
       Layout file for the main activity.
